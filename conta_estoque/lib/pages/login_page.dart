@@ -12,13 +12,13 @@ class LoginPage extends StatelessWidget {
           left: 40,
           right: 40,
         ),
-        color: const Color.fromARGB(255, 211, 211, 211),
+        color: const Color.fromARGB(255, 255, 255, 255),
         child: ListView(
           children: <Widget>[
             SizedBox(
               width: 128,
               height: 128,
-              child: Image.asset("images/copapel.jpeg"),
+              child: Image.asset("images/logocopapel-512x154.png"),
             ),
             const SizedBox(
               height: 20,
@@ -81,7 +81,7 @@ class LoginPage extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  stops: [0.3,1],
+                  stops: [0.3, 1],
                   colors: [
                     Color.fromARGB(255, 7, 223, 61),
                     Color.fromARGB(255, 0, 104, 47),
@@ -111,7 +111,8 @@ class LoginPage extends StatelessWidget {
                       SizedBox(
                         height: 28,
                         width: 28,
-                        child: Image.asset("images/copapel.jpeg"),
+                        child:
+                            Image.asset("images/copapel-removebg-preview.png"),
                       ),
                     ],
                   ),

@@ -64,6 +64,8 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - images/copapel.jpeg
+    - images/copapel-removebg-preview.png
+    - images/logocopapel-512x154.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
