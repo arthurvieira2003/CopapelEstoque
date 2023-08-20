@@ -1,17 +1,32 @@
+import 'package:conta_estoque/widget_tree.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+<<<<<<< Updated upstream
 void main() {
+=======
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+>>>>>>> Stashed changes
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
+<<<<<<< Updated upstream
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+=======
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+>>>>>>> Stashed changes
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -31,6 +46,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+<<<<<<< Updated upstream
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -123,3 +139,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+=======
+      home: const WidgetTree(),
+    );
+  }
+}
+>>>>>>> Stashed changes

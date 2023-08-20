@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "272897605480",
+    "project_id": "bancocontagem-55a63",
+    "storage_bucket": "bancocontagem-55a63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272897605480:android:2a7755da9b0e6d482d20dd",
+        "android_client_info": {
+          "package_name": "com.example.conta_estoque"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "272897605480-gn2urqi0ldntmmbs2sgtesm6e8m9tc3a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHRW0-nmUgZpBDrixfIXlVhE7B1L-Pk6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "272897605480-gn2urqi0ldntmmbs2sgtesm6e8m9tc3a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
