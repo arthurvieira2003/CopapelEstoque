@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _title() {
-    return const Text('Firebase Auth');
+    return const Text('Copapel');
   }
 
   Widget _entryField(
@@ -56,28 +56,28 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _errorMessage(){
-    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
+  Widget _errorMessage() {
+    return Text(errorMessage == '' ? '' : 'Usuário ou senha inválidos');
   }
 
-  Widget _submitButton(){
+  Widget _submitButton() {
     return ElevatedButton(
-      onPressed: 
-          isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword, 
-      child: Text(isLogin ? 'Login' : 'Register'),
+      onPressed:
+          isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
+      child: Text(isLogin ? 'Login' : 'Registrar'),
     );
   }
 
-Widget _loginOrRegisterButton(){
-  return TextButton(
-    onPressed: () {
-      setState(() {
-        isLogin = !isLogin;
-      });
-    }, 
-    child: Text(isLogin ? 'Register Instead' : 'Login Instead'),
-  );
-}
+  Widget _loginOrRegisterButton() {
+    return TextButton(
+      onPressed: () {
+        setState(() {
+          isLogin = !isLogin;
+        });
+      },
+      child: Text(isLogin ? 'Registrar-se' : 'Logar'),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +98,9 @@ Widget _loginOrRegisterButton(){
             _errorMessage(),
             _submitButton(),
             _loginOrRegisterButton(),
+            Container(
+              child: Image.asset('assets/images/logocopapel-512x154.png'),
+            )
           ],
         ),
       ),
