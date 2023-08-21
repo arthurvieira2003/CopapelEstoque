@@ -64,7 +64,34 @@ class _LoginPageState extends State<LoginPage> {
     return ElevatedButton(
       onPressed:
           isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
-      child: Text(isLogin ? 'Login' : 'Registrar'),
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.zero, // Remove o padding interno do botão
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 5,
+      ),
+      child: Row(
+        mainAxisAlignment:
+            MainAxisAlignment.spaceBetween, // Alinha o ícone à direita
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            child: Text(
+              isLogin ? 'Login' : 'Registrar',
+              style: const TextStyle(fontSize: 18),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 10), // Espaçamento do ícone
+            child: Image.asset(
+              'assets/copapel-removebg-preview.png', // Caminho para o ícone
+              height: 24, // Altura do ícone
+              width: 24, // Largura do ícone
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -82,9 +109,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: _title(),
-      ),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -93,14 +117,19 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Image.asset(
+              'assets/logocopapel-512x154.png',
+              alignment: Alignment.topCenter,
+            ),
+            const SizedBox(
+              height: 150,
+            ),
             _entryField('email', _controllerEmail),
             _entryField('password', _controllerPassword),
             _errorMessage(),
+            const SizedBox(height: 20),
             _submitButton(),
             _loginOrRegisterButton(),
-            Container(
-              child: Image.asset('assets/images/logocopapel-512x154.png'),
-            )
           ],
         ),
       ),
