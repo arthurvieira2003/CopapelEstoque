@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:conta_estoque/auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -40,16 +40,12 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Widget _title() {
-    return const Text('Copapel');
-  }
-
-  Widget _entryField(
-    String title,
-    TextEditingController controller,
-  ) {
+  Widget _entryField(String title, TextEditingController controller,
+      {bool isPassword = false} // Add this parameter
+      ) {
     return TextField(
       controller: controller,
+      obscureText: isPassword, // Set obscureText to true for password
       decoration: InputDecoration(
         labelText: title,
       ),
@@ -109,28 +105,29 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(
-              'assets/logocopapel-512x154.png',
-              alignment: Alignment.topCenter,
-            ),
-            const SizedBox(
-              height: 150,
-            ),
-            _entryField('email', _controllerEmail),
-            _entryField('password', _controllerPassword),
-            _errorMessage(),
-            const SizedBox(height: 20),
-            _submitButton(),
-            _loginOrRegisterButton(),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height, // Use device's height
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(
+                'assets/logocopapel-512x154.png',
+                alignment: Alignment.topCenter,
+              ),
+              const SizedBox(
+                height: 150,
+              ),
+              _entryField('Email', _controllerEmail),
+              _entryField('Senha', _controllerPassword, isPassword: true),
+              _errorMessage(),
+              const SizedBox(height: 20),
+              _submitButton(),
+              _loginOrRegisterButton(),
+            ],
+          ),
         ),
       ),
     );
