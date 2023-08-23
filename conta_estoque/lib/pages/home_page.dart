@@ -18,11 +18,9 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
-  bool _launchSuccess =
-      false; // Estado para controlar a exibição do texto de sucesso
+  bool _launchSuccess = false;
 
-  bool _isButtonEnabled =
-      false; // Estado para controlar se o botão de lançar está habilitado
+  bool _isButtonEnabled = false;
 
   Future<void> signOut() async {
     await Auth().signOut();
@@ -66,21 +64,18 @@ class _HomePageState extends State<HomePage> {
       _codeController.clear();
       _positionController.clear();
       _quantityController.clear();
-      _descriptionController.clear(); // Limpa o campo de descrição
+      _descriptionController.clear();
 
-      // Atualiza o estado para exibir o texto de sucesso
       setState(() {
         _launchSuccess = true;
       });
 
-      // Define um tempo para ocultar o texto de sucesso após alguns segundos
       Future.delayed(const Duration(seconds: 3), () {
         setState(() {
           _launchSuccess = false;
         });
       });
 
-      // Atualiza o estado para desabilitar o botão de lançar
       setState(() {
         _isButtonEnabled = false;
       });
