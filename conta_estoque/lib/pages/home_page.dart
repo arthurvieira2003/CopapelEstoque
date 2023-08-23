@@ -3,15 +3,26 @@ import 'package:conta_estoque/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final User? user = Auth().currentUser;
 
   final TextEditingController _codeController = TextEditingController();
   final TextEditingController _positionController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+
+  bool _launchSuccess =
+      false; // Estado para controlar a exibição do texto de sucesso
+
+  bool _isButtonEnabled =
+      false; // Estado para controlar se o botão de lançar está habilitado
 
   Future<void> signOut() async {
     await Auth().signOut();
@@ -41,10 +52,12 @@ class HomePage extends StatelessWidget {
     final code = _codeController.text;
     final position = _positionController.text;
     final quantity = int.parse(_quantityController.text);
+    final description = _descriptionController.text;
 
     try {
       await FirebaseFirestore.instance.collection('launches').add({
         'code': code,
+        'description': description,
         'position': position,
         'quantity': quantity,
         'user': user?.email,
@@ -53,9 +66,36 @@ class HomePage extends StatelessWidget {
       _codeController.clear();
       _positionController.clear();
       _quantityController.clear();
+      _descriptionController.clear(); // Limpa o campo de descrição
+
+      // Atualiza o estado para exibir o texto de sucesso
+      setState(() {
+        _launchSuccess = true;
+      });
+
+      // Define um tempo para ocultar o texto de sucesso após alguns segundos
+      Future.delayed(const Duration(seconds: 3), () {
+        setState(() {
+          _launchSuccess = false;
+        });
+      });
+
+      // Atualiza o estado para desabilitar o botão de lançar
+      setState(() {
+        _isButtonEnabled = false;
+      });
     } catch (e) {
       print('Erro ao fazer lançamento: $e');
     }
+  }
+
+  void _updateButtonEnabledState() {
+    setState(() {
+      _isButtonEnabled = _codeController.text.isNotEmpty &&
+          _positionController.text.isNotEmpty &&
+          _quantityController.text.isNotEmpty &&
+          _descriptionController.text.isNotEmpty;
+    });
   }
 
   @override
@@ -77,7 +117,7 @@ class HomePage extends StatelessWidget {
                   child: Text(
                     user?.email ?? 'User email',
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
                       color: Color.fromARGB(167, 131, 126, 126),
                     ),
                   ),
@@ -100,25 +140,36 @@ class HomePage extends StatelessWidget {
                 decoration:
                     const InputDecoration(labelText: 'Código do Produto'),
                 onChanged: (code) {
-                  _fetchProductDescription(code);
+                  if (code.isEmpty) {
+                    _descriptionController.clear();
+                  } else {
+                    _fetchProductDescription(code);
+                  }
+                  _updateButtonEnabledState();
                 },
               ),
               TextFormField(
                 controller: _descriptionController,
                 decoration: const InputDecoration(labelText: 'Descrição'),
                 readOnly: true,
+                maxLines: null,
+                style: const TextStyle(fontSize: 16),
               ),
               TextFormField(
                 controller: _positionController,
                 decoration: const InputDecoration(labelText: 'Vaga'),
+                style: const TextStyle(fontSize: 16),
+                onChanged: (_) => _updateButtonEnabledState(),
               ),
               TextFormField(
                 controller: _quantityController,
                 decoration: const InputDecoration(labelText: 'Quantidade'),
+                style: const TextStyle(fontSize: 16),
+                onChanged: (_) => _updateButtonEnabledState(),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _submitLaunch,
+                onPressed: _isButtonEnabled ? _submitLaunch : null,
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(
@@ -126,7 +177,21 @@ class HomePage extends StatelessWidget {
                   ),
                   elevation: 5,
                 ),
-                child: const Text('Lançar'),
+                child: const Text(
+                  'Lançar',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+              Visibility(
+                visible: _launchSuccess,
+                child: const Text(
+                  'Lançamento realizado com sucesso!',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               ElevatedButton(
                 onPressed: signOut,
@@ -137,7 +202,10 @@ class HomePage extends StatelessWidget {
                   ),
                   elevation: 5,
                 ),
-                child: const Text('Sair'),
+                child: const Text(
+                  'Sair',
+                  style: TextStyle(fontSize: 16),
+                ),
               ),
               const SizedBox(
                 height: 110,
