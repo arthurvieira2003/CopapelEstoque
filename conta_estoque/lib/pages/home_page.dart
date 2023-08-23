@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
         'code': code,
         'position': position,
         'quantity': quantity,
-        'user': user?.email, // Adicionando o email do usuário
+        'user': user?.email,
       });
 
       _codeController.clear();
@@ -70,26 +70,29 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const SizedBox(height: 60), // Aumentei o espaçamento aqui
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 16.0, top: 10), // Ajustei o espaçamento aqui
+                  padding: const EdgeInsets.only(left: 1.0, top: 10),
                   child: Text(
                     user?.email ?? 'User email',
-                    style: const TextStyle(fontSize: 18),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Color.fromARGB(167, 131, 126, 126),
+                    ),
                   ),
                 ),
               ),
               Align(
                 alignment: Alignment.topRight,
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      right: 16.0, top: 10), // Ajustei o espaçamento aqui
+                  padding: const EdgeInsets.only(right: 16.0, top: 10),
                   child: Image.asset('assets/copapel-removebg-preview.png',
-                      width: 120, height: 120), // Aumentei o tamanho da imagem
+                      width: 120, height: 120),
                 ),
+              ),
+              const SizedBox(
+                height: 150,
               ),
               const SizedBox(height: 20),
               TextFormField(
@@ -116,11 +119,28 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _submitLaunch,
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.zero, // Remove o padding interno do botão
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 5,
+                ),
                 child: const Text('Lançar'),
               ),
               ElevatedButton(
                 onPressed: signOut,
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.zero, // Remove o padding interno do botão
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 5,
+                ),
                 child: const Text('Sair'),
+              ),
+              const SizedBox(
+                height: 110,
               ),
             ],
           ),

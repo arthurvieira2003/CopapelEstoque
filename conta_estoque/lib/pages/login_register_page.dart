@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       child: Row(
         mainAxisAlignment:
-            MainAxisAlignment.spaceBetween, // Alinha o ícone à direita
+            MainAxisAlignment.spaceBetween,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
@@ -79,11 +79,11 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 10), // Espaçamento do ícone
+            padding: const EdgeInsets.only(right: 10),
             child: Image.asset(
-              'assets/copapel-removebg-preview.png', // Caminho para o ícone
-              height: 24, // Altura do ícone
-              width: 24, // Largura do ícone
+              'assets/copapel-removebg-preview.png',
+              height: 40,
+              width: 40,
             ),
           ),
         ],
@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height, // Use device's height
+          height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,9 +116,10 @@ class _LoginPageState extends State<LoginPage> {
               Image.asset(
                 'assets/logocopapel-512x154.png',
                 alignment: Alignment.topCenter,
+                width: 300,
               ),
               const SizedBox(
-                height: 150,
+                height: 130,
               ),
               _entryField('Email', _controllerEmail),
               _entryField('Senha', _controllerPassword, isPassword: true),
@@ -126,6 +127,9 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 20),
               _submitButton(),
               _loginOrRegisterButton(),
+              const SizedBox(
+                height: 50,
+              )
             ],
           ),
         ),
