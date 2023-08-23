@@ -41,11 +41,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _entryField(String title, TextEditingController controller,
-      {bool isPassword = false} // Add this parameter
-      ) {
+      {bool isPassword = false}) {
     return TextField(
       controller: controller,
-      obscureText: isPassword, // Set obscureText to true for password
+      obscureText: isPassword,
       decoration: InputDecoration(
         labelText: title,
       ),
@@ -61,15 +60,14 @@ class _LoginPageState extends State<LoginPage> {
       onPressed:
           isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.zero, // Remove o padding interno do botão
+        padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
         elevation: 5,
       ),
       child: Row(
-        mainAxisAlignment:
-            MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),

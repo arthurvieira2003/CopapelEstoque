@@ -120,7 +120,7 @@ class HomePage extends StatelessWidget {
               ElevatedButton(
                 onPressed: _submitLaunch,
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero, // Remove o padding interno do botão
+                  padding: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -131,7 +131,7 @@ class HomePage extends StatelessWidget {
               ElevatedButton(
                 onPressed: signOut,
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero, // Remove o padding interno do botão
+                  padding: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
