@@ -47,6 +47,7 @@ class HomePage extends StatelessWidget {
         'code': code,
         'position': position,
         'quantity': quantity,
+        'user': user?.email, // Adicionando o email do usuário
       });
 
       _codeController.clear();
@@ -69,20 +70,25 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const SizedBox(height: 20),
+              const SizedBox(height: 60), // Aumentei o espaçamento aqui
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(user?.email ?? 'User email'),
+                  padding: const EdgeInsets.only(
+                      left: 16.0, top: 10), // Ajustei o espaçamento aqui
+                  child: Text(
+                    user?.email ?? 'User email',
+                    style: const TextStyle(fontSize: 18),
+                  ),
                 ),
               ),
               Align(
                 alignment: Alignment.topRight,
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
+                  padding: const EdgeInsets.only(
+                      right: 16.0, top: 10), // Ajustei o espaçamento aqui
                   child: Image.asset('assets/copapel-removebg-preview.png',
-                      width: 70, height: 70),
+                      width: 120, height: 120), // Aumentei o tamanho da imagem
                 ),
               ),
               const SizedBox(height: 20),
