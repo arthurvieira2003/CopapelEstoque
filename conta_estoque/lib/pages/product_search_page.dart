@@ -1,9 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProductSearchPage extends StatefulWidget {
+  const ProductSearchPage({super.key});
+
   @override
-  _ProductSearchPageState createState() => _ProductSearchPageState();
+  State<ProductSearchPage> createState() => _ProductSearchPageState();
 }
 
 class _ProductSearchPageState extends State<ProductSearchPage> {
@@ -28,7 +31,9 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
         _filteredProducts = _allProducts;
       });
     } catch (e) {
-      print('Error fetching products: $e');
+      if (kDebugMode) {
+        print('Erro ao buscar produto: $e');
+      }
     }
   }
 
@@ -46,49 +51,54 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Product Search'),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      labelText: 'Pesquise pela descrição ou código',
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: const InputDecoration(
+                          labelText: 'Pesquise pela descrição ou código',
+                        ),
+                      ),
                     ),
-                  ),
+                    ElevatedButton(
+                      onPressed: _searchProducts,
+                      child: const Text('Buscar'),
+                    ),
+                  ],
                 ),
-                ElevatedButton(
-                  onPressed: _searchProducts,
-                  child: Text('Buscar'),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _filteredProducts.length,
-              itemBuilder: (context, index) {
-                final product = _filteredProducts[index];
-                final description = product['description'];
-                final code = product.id;
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _filteredProducts.length,
+                  itemBuilder: (context, index) {
+                    final product = _filteredProducts[index];
+                    final description = product['description'];
+                    final code = product.id;
 
-                return ListTile(
-                  title: Text(description),
-                  subtitle: Text('Código: $code'),
-                  onTap: () {
-                    Navigator.pop(context, code);
+                    return ListTile(
+                      title: Text(description),
+                      subtitle: Text('Código: $code'),
+                      onTap: () {
+                        Navigator.pop(context, code);
+                      },
+                    );
                   },
-                );
-              },
-            ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

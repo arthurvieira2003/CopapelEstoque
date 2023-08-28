@@ -1,31 +1,30 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:conta_estoque/auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conta_estoque/pages/product_search_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Product Launch App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+    return const MaterialApp(
       home: HomePage(),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -39,7 +38,6 @@ class _HomePageState extends State<HomePage> {
   bool _launchSuccess = false;
   bool _isButtonEnabled = false;
   String? _selectedBranch;
-  String? _selectedProductCode;
 
   final List<String> _branchOptions = [
     'Selecione a Filial',
@@ -69,17 +67,17 @@ class _HomePageState extends State<HomePage> {
           .get();
 
       if (snapshot.exists) {
-        final productData =
-            snapshot.data() as Map<String, dynamic>; // Added type cast
-        final description = productData['description']
-            as String; // Access description using the field name
+        final productData = snapshot.data() as Map<String, dynamic>;
+        final description = productData['description'] as String;
 
         _descriptionController.text = description;
       } else {
         _descriptionController.text = 'Produto não encontrado';
       }
     } catch (e) {
-      print('Erro ao buscar descrição do produto: $e');
+      if (kDebugMode) {
+        print('Erro ao buscar descrição do produto: $e');
+      }
     }
   }
 
@@ -121,7 +119,9 @@ class _HomePageState extends State<HomePage> {
         _isButtonEnabled = false;
       });
     } catch (e) {
-      print('Erro ao fazer lançamento: $e');
+      if (kDebugMode) {
+        print('Erro ao fazer lançamento: $e');
+      }
     }
   }
 
@@ -184,18 +184,17 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.search),
+                    icon: const Icon(Icons.search),
                     onPressed: () async {
                       final selectedProductCode = await Navigator.push<String>(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ProductSearchPage(),
+                          builder: (context) => const ProductSearchPage(),
                         ),
                       );
                       if (selectedProductCode != null) {
                         setState(() {
                           _codeController.text = selectedProductCode;
-                          _selectedProductCode = selectedProductCode;
                           _fetchProductDescription(selectedProductCode);
                         });
                       }
@@ -226,7 +225,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 20),
               DropdownButton<String>(
                 value: _selectedBranch,
-                hint: const Text('Selecione a Filial'), // Placeholder
+                hint: const Text('Selecione a Filial'),
                 items: _branchOptions.map((String branch) {
                   return DropdownMenuItem<String>(
                     value: branch,
