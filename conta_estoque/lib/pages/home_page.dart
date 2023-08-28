@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
   String? _selectedBranch;
   String? _selectedProductCode;
 
-  List<String> _branchOptions = [
+  final List<String> _branchOptions = [
     'Selecione a Filial',
     'Joinville Matriz',
     'Joinville Casa Verde',
