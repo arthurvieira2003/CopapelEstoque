@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conta_estoque/pages/product_search_page.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 
 void main() {
   runApp(const MyApp());
@@ -171,10 +173,24 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const SizedBox(height: 10),
-              Image.network(
-                _productImageUrl,
-                width: 240,
-                height: 240,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ImageDetailScreen(imageUrl: _productImageUrl),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: 240,
+                  height: 240,
+                  child: Image.network(
+                    _productImageUrl,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               const SizedBox(height: 30),
               Row(
@@ -320,6 +336,23 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ImageDetailScreen extends StatelessWidget {
+  final String imageUrl;
+
+  const ImageDetailScreen({required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: PhotoView(
+        imageProvider: NetworkImage(imageUrl),
+        minScale: PhotoViewComputedScale.contained,
+        maxScale: PhotoViewComputedScale.covered * 2,
       ),
     );
   }
