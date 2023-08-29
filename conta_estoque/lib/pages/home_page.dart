@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conta_estoque/pages/product_search_page.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
 
 void main() {
   runApp(const MyApp());
@@ -183,7 +182,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 },
-                child: Container(
+                child: SizedBox(
                   width: 240,
                   height: 240,
                   child: Image.network(
@@ -344,7 +343,7 @@ class _HomePageState extends State<HomePage> {
 class ImageDetailScreen extends StatelessWidget {
   final String imageUrl;
 
-  const ImageDetailScreen({required this.imageUrl});
+  const ImageDetailScreen({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
