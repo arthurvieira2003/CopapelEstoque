@@ -81,6 +81,11 @@ class _HomePageState extends State<HomePage> {
         });
       } else {
         _descriptionController.text = 'Produto não encontrado';
+
+        // Set default image URL to Copapel logo if imageURL is empty
+        setState(() {
+          _productImageUrl = 'assets/logocopapel-512x154.png';
+        });
       }
     } catch (e) {
       if (kDebugMode) {
