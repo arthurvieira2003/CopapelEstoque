@@ -29,6 +29,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final User? user = Auth().currentUser;
+  String _productImageUrl = '';
 
   final TextEditingController _codeController = TextEditingController();
   final TextEditingController _positionController = TextEditingController();
@@ -69,8 +70,15 @@ class _HomePageState extends State<HomePage> {
       if (snapshot.exists) {
         final productData = snapshot.data() as Map<String, dynamic>;
         final description = productData['description'] as String;
+        final imageUrl =
+            'https://storage.googleapis.com/img-produtos-copapel/$code.jpg';
 
         _descriptionController.text = description;
+
+        // Update the product image
+        setState(() {
+          _productImageUrl = imageUrl;
+        });
       } else {
         _descriptionController.text = 'Produto não encontrado';
       }
@@ -159,8 +167,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const SizedBox(height: 10),
-              Image.asset(
-                'assets/copapel-removebg-preview.png',
+              Image.network(
+                _productImageUrl,
                 width: 120,
                 height: 120,
               ),
