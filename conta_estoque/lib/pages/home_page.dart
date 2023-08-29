@@ -44,16 +44,11 @@ class _HomePageState extends State<HomePage> {
     'Selecione a Filial',
     'Joinville Matriz',
     'Joinville Casa Verde',
-    'Chapecó Depósito',
-    'Chapecó Loja',
-    'Palhoça Depósito',
-    'Palhoça Loja',
-    'POA Depósito',
-    'POA Loja',
-    'SJP Depósito',
-    'SJP Loja',
-    'Arapongas Depósito',
-    'Arapongas Loja',
+    'Chapecó',
+    'Palhoça',
+    'Porto Alegre',
+    'SJP',
+    'Arapongas',
   ];
 
   Future<void> signOut() async {
@@ -70,21 +65,17 @@ class _HomePageState extends State<HomePage> {
       if (snapshot.exists) {
         final productData = snapshot.data() as Map<String, dynamic>;
         final description = productData['description'] as String;
-        final imageUrl =
-            'https://storage.googleapis.com/img-produtos-copapel/$code.jpg';
+        final imageUrl = productData['imageURL'] as String;
 
-        _descriptionController.text = description;
-
-        // Update the product image
         setState(() {
+          _descriptionController.text = description;
           _productImageUrl = imageUrl;
         });
       } else {
-        _descriptionController.text = 'Produto não encontrado';
-
-        // Set default image URL to Copapel logo if imageURL is empty
         setState(() {
-          _productImageUrl = 'assets/logocopapel-512x154.png';
+          _descriptionController.text = 'Produto não encontrado';
+          _productImageUrl =
+              'https://storage.googleapis.com/img-produtos-copapel/copapel-removebg-preview.png';
         });
       }
     } catch (e) {
@@ -150,6 +141,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    _productImageUrl =
+        'https://storage.googleapis.com/img-produtos-copapel/copapel-removebg-preview.png';
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -174,8 +173,8 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 10),
               Image.network(
                 _productImageUrl,
-                width: 120,
-                height: 120,
+                width: 240,
+                height: 240,
               ),
               const SizedBox(height: 30),
               Row(
