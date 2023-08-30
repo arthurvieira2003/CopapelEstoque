@@ -48,20 +48,36 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
     });
   }
 
+  void _showImageDialog(String imageUrl) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Image.network(imageUrl),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
+      body: Center(
+        child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
+              const SizedBox(height: 25), // Espaço adicional para baixo
+              Align(
+                alignment: Alignment.center,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
                       child: TextField(
@@ -78,6 +94,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                   ],
                 ),
               ),
+              const SizedBox(height: 20), // Espaço adicional para baixo
               Expanded(
                 child: ListView.builder(
                   itemCount: _filteredProducts.length,
@@ -85,8 +102,18 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                     final product = _filteredProducts[index];
                     final description = product['description'];
                     final code = product.id;
+                    final imageUrl = product['imageURL'];
 
                     return ListTile(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 8),
+                      leading: imageUrl != null
+                          ? InkWell(
+                              onTap: () {
+                                _showImageDialog(imageUrl);
+                              },
+                              child: Image.network(imageUrl),
+                            )
+                          : Container(),
                       title: Text(description),
                       subtitle: Text('Código: $code'),
                       onTap: () {

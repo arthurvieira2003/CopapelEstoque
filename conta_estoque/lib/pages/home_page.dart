@@ -171,7 +171,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -191,7 +190,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
               Row(
                 children: [
                   Expanded(
