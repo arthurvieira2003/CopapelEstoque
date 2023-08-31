@@ -192,6 +192,12 @@ class _HomePageState extends State<HomePage> {
               ),
               Row(
                 children: [
+                  TextFormField(
+                    controller: _positionController,
+                    decoration: const InputDecoration(labelText: 'Vaga'),
+                    style: const TextStyle(fontSize: 16),
+                    onChanged: (_) => _updateButtonEnabledState(),
+                  ),
                   Expanded(
                     child: TextFormField(
                       controller: _codeController,
@@ -234,12 +240,6 @@ class _HomePageState extends State<HomePage> {
                 readOnly: true,
                 maxLines: null,
                 style: const TextStyle(fontSize: 16),
-              ),
-              TextFormField(
-                controller: _positionController,
-                decoration: const InputDecoration(labelText: 'Vaga'),
-                style: const TextStyle(fontSize: 16),
-                onChanged: (_) => _updateButtonEnabledState(),
               ),
               TextFormField(
                 controller: _quantityController,
