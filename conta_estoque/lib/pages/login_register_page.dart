@@ -48,6 +48,12 @@ class _LoginPageState extends State<LoginPage> {
       decoration: InputDecoration(
         labelText: title,
       ),
+      onChanged: (text) {
+        controller.value = controller.value.copyWith(
+          text: text.trim(),
+          selection: TextSelection.collapsed(offset: text.trim().length),
+        );
+      },
     );
   }
 

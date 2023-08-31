@@ -190,14 +190,15 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              // Move TextFormField for "Vaga" above the one for "Código do Produto"
+              TextFormField(
+                controller: _positionController,
+                decoration: const InputDecoration(labelText: 'Vaga'),
+                style: const TextStyle(fontSize: 16),
+                onChanged: (_) => _updateButtonEnabledState(),
+              ),
               Row(
                 children: [
-                  TextFormField(
-                    controller: _positionController,
-                    decoration: const InputDecoration(labelText: 'Vaga'),
-                    style: const TextStyle(fontSize: 16),
-                    onChanged: (_) => _updateButtonEnabledState(),
-                  ),
                   Expanded(
                     child: TextFormField(
                       controller: _codeController,
@@ -209,7 +210,6 @@ class _HomePageState extends State<HomePage> {
                         } else {
                           _fetchProductDescription(code);
                         }
-
                         _updateButtonEnabledState();
                       },
                     ),
