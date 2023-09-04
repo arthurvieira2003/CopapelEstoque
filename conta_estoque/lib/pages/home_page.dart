@@ -34,7 +34,9 @@ class _HomePageState extends State<HomePage> {
   String _productImageUrl = '';
 
   final TextEditingController _codeController = TextEditingController();
-  final TextEditingController _positionController = TextEditingController();
+  final TextEditingController _corredorController = TextEditingController();
+  final TextEditingController _colunaController = TextEditingController();
+  final TextEditingController _nivelController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
@@ -89,9 +91,12 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _submitLaunch() async {
     final code = _codeController.text;
-    final position = _positionController.text;
+    final corredor = _corredorController.text;
+    final coluna = _colunaController.text;
+    final nivel = _nivelController.text;
     final quantity = int.parse(_quantityController.text);
     final description = _descriptionController.text;
+    final position = '$corredor$coluna.$nivel';
 
     try {
       final currentTime = DateTime.now();
@@ -107,7 +112,6 @@ class _HomePageState extends State<HomePage> {
       });
 
       _codeController.clear();
-      _positionController.clear();
       _quantityController.clear();
       _descriptionController.clear();
 
@@ -134,7 +138,9 @@ class _HomePageState extends State<HomePage> {
   void _updateButtonEnabledState() {
     setState(() {
       _isButtonEnabled = _codeController.text.isNotEmpty &&
-          _positionController.text.isNotEmpty &&
+          _corredorController.text.isNotEmpty &&
+          _colunaController.text.isNotEmpty &&
+          _nivelController.text.isNotEmpty &&
           _quantityController.text.isNotEmpty &&
           _descriptionController.text.isNotEmpty &&
           _selectedBranch != null &&
@@ -191,11 +197,51 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              TextFormField(
-                controller: _positionController,
-                decoration: const InputDecoration(labelText: 'Vaga'),
-                style: const TextStyle(fontSize: 16),
-                onChanged: (_) => _updateButtonEnabledState(),
+              SizedBox(
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: SizedBox(
+                        width: 100,
+                        child: TextFormField(
+                          controller: _corredorController,
+                          decoration:
+                              const InputDecoration(labelText: 'Corredor'),
+                          style: const TextStyle(fontSize: 16),
+                          onChanged: (_) => _updateButtonEnabledState(),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: 100,
+                        child: TextFormField(
+                          controller: _colunaController,
+                          decoration:
+                              const InputDecoration(labelText: 'Coluna'),
+                          style: const TextStyle(fontSize: 16),
+                          onChanged: (_) => _updateButtonEnabledState(),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: SizedBox(
+                        width: 100,
+                        child: TextFormField(
+                          controller: _nivelController,
+                          decoration: const InputDecoration(labelText: 'Nível'),
+                          style: const TextStyle(fontSize: 16),
+                          onChanged: (_) => _updateButtonEnabledState(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Row(
                 children: [
@@ -233,7 +279,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
               TextFormField(
                 controller: _descriptionController,
                 decoration: const InputDecoration(labelText: 'Descrição'),
