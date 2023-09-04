@@ -190,7 +190,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              // Move TextFormField for "Vaga" above the one for "Código do Produto"
               TextFormField(
                 controller: _positionController,
                 decoration: const InputDecoration(labelText: 'Vaga'),

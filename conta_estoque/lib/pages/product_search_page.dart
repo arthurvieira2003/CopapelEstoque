@@ -73,7 +73,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 25), // Espaço adicional para baixo
+              const SizedBox(height: 25),
               Align(
                 alignment: Alignment.center,
                 child: Row(
@@ -94,7 +94,7 @@ class _ProductSearchPageState extends State<ProductSearchPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20), // Espaço adicional para baixo
+              const SizedBox(height: 20),
               Expanded(
                 child: ListView.builder(
                   itemCount: _filteredProducts.length,

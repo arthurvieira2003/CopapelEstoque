@@ -46,6 +46,19 @@ dependencies:
   path_provider: ^2.1.0
   transparent_image: ^2.0.1
   connectivity: ^3.0.6
+  flutter_native_splash: ^2.3.2
+  flutter_launcher_icons: ^0.13.1
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: "assets/copapel-removebg-preview.png"
+  android: true
+
+flutter_icons:
+  image_path: "assets/copapel-removebg-preview.png"
+  android: "launcher_icon"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/copapel-removebg-preview.png"
 
 dev_dependencies:
   flutter_test:
