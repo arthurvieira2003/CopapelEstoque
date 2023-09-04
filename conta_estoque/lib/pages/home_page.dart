@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conta_estoque/pages/product_search_page.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -241,10 +242,14 @@ class _HomePageState extends State<HomePage> {
                 style: const TextStyle(fontSize: 16),
               ),
               TextFormField(
+                keyboardType: TextInputType.number,
                 controller: _quantityController,
                 decoration: const InputDecoration(labelText: 'Quantidade'),
                 style: const TextStyle(fontSize: 16),
                 onChanged: (_) => _updateButtonEnabledState(),
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
               ),
               const SizedBox(height: 20),
               DropdownButton<String>(
@@ -291,8 +296,8 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.only(right: 10),
                       child: Image.asset(
                         'assets/copapel-removebg-preview.png',
-                        height: 24,
-                        width: 24,
+                        height: 40,
+                        width: 40,
                       ),
                     ),
                   ],
