@@ -7,21 +7,6 @@ import 'package:conta_estoque/pages/product_search_page.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter/services.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
-    );
-  }
-}
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -59,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     await Auth().signOut();
   }
 
-  Future<void> _fetchProductDescription(String code) async {
+  Future<void> _buscarDescricoes(String code) async {
     try {
       final snapshot = await FirebaseFirestore.instance
           .collection('products')
@@ -102,13 +87,13 @@ class _HomePageState extends State<HomePage> {
       final currentTime = DateTime.now();
 
       await FirebaseFirestore.instance.collection('launches').add({
-        'code': code,
-        'description': description,
-        'position': position,
-        'quantity': quantity,
-        'user': user?.email,
-        'branch': _selectedBranch,
-        'timestamp': currentTime,
+        'posição': position,
+        'código': code,
+        'descrição': description,
+        'quantidade': quantity,
+        'filial': _selectedBranch,
+        'usuário': user?.email,
+        'hora': currentTime,
       });
 
       _codeController.clear();
@@ -147,6 +132,12 @@ class _HomePageState extends State<HomePage> {
           _selectedBranch != 'Selecione a Filial';
     });
   }
+
+  FocusNode fieldCorredor = FocusNode();
+  FocusNode fieldColuna = FocusNode();
+  FocusNode fieldNivel = FocusNode();
+  FocusNode fieldCodigo = FocusNode();
+  FocusNode fieldQuantidade = FocusNode();
 
   @override
   void initState() {
@@ -207,10 +198,18 @@ class _HomePageState extends State<HomePage> {
                       child: SizedBox(
                         width: 100,
                         child: TextFormField(
+                          focusNode: fieldCorredor,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(1),
+                            UpperCaseTextFormatter(),
+                          ],
                           controller: _corredorController,
                           decoration:
                               const InputDecoration(labelText: 'Corredor'),
                           style: const TextStyle(fontSize: 16),
+                          onFieldSubmitted: (value) {
+                            FocusScope.of(context).requestFocus(fieldColuna);
+                          },
                           onChanged: (_) => _updateButtonEnabledState(),
                         ),
                       ),
@@ -220,10 +219,18 @@ class _HomePageState extends State<HomePage> {
                       child: SizedBox(
                         width: 100,
                         child: TextFormField(
+                          focusNode: fieldColuna,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(2)
+                          ],
+                          keyboardType: TextInputType.number,
                           controller: _colunaController,
                           decoration:
                               const InputDecoration(labelText: 'Coluna'),
                           style: const TextStyle(fontSize: 16),
+                          onFieldSubmitted: (value) {
+                            FocusScope.of(context).requestFocus(fieldNivel);
+                          },
                           onChanged: (_) => _updateButtonEnabledState(),
                         ),
                       ),
@@ -233,9 +240,17 @@ class _HomePageState extends State<HomePage> {
                       child: SizedBox(
                         width: 100,
                         child: TextFormField(
+                          focusNode: fieldNivel,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(1)
+                          ],
+                          keyboardType: TextInputType.number,
                           controller: _nivelController,
                           decoration: const InputDecoration(labelText: 'Nível'),
                           style: const TextStyle(fontSize: 16),
+                          onFieldSubmitted: (value) {
+                            FocusScope.of(context).requestFocus(fieldCodigo);
+                          },
                           onChanged: (_) => _updateButtonEnabledState(),
                         ),
                       ),
@@ -247,16 +262,23 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      focusNode: fieldCodigo,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(6),
+                        UpperCaseTextFormatter(),
+                      ],
                       controller: _codeController,
-                      decoration:
-                          const InputDecoration(labelText: 'Código do Produto'),
+                      decoration: const InputDecoration(labelText: 'Código'),
                       onChanged: (code) {
                         if (code.isEmpty) {
                           _descriptionController.clear();
                         } else {
-                          _fetchProductDescription(code);
+                          _buscarDescricoes(code);
                         }
                         _updateButtonEnabledState();
+                      },
+                      onFieldSubmitted: (value) {
+                        FocusScope.of(context).requestFocus(fieldQuantidade);
                       },
                     ),
                   ),
@@ -272,7 +294,7 @@ class _HomePageState extends State<HomePage> {
                       if (selectedProductCode != null) {
                         setState(() {
                           _codeController.text = selectedProductCode;
-                          _fetchProductDescription(selectedProductCode);
+                          _buscarDescricoes(selectedProductCode);
                         });
                       }
                     },
@@ -287,6 +309,7 @@ class _HomePageState extends State<HomePage> {
                 style: const TextStyle(fontSize: 16),
               ),
               TextFormField(
+                focusNode: fieldQuantidade,
                 keyboardType: TextInputType.number,
                 controller: _quantityController,
                 decoration: const InputDecoration(labelText: 'Quantidade'),
@@ -400,6 +423,17 @@ class ImageDetailScreen extends StatelessWidget {
         minScale: PhotoViewComputedScale.contained,
         maxScale: PhotoViewComputedScale.covered * 2,
       ),
+    );
+  }
+}
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
     );
   }
 }
