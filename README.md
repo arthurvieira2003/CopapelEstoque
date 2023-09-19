@@ -1,6 +1,6 @@
 # Aplicativo de Contagem de Estoque Copapel
 
-O Aplicativo de Contagem de Estoque Copapel é uma solução desenvolvida para simplificar o processo de contagem e gerenciamento de estoque da empresa Copapel. O aplicativo é construído utilizando as tecnologias Flutter/Dart, Firebase e Node.js para fornecer uma experiência de usuário intuitiva e uma base sólida para gerenciamento de dados em tempo real.
+O Aplicativo de Contagem de Estoque Copapel é uma solução desenvolvida para simplificar o processo de contagem e inventário de estoque da empresa Copapel. O aplicativo é construído utilizando as tecnologias Flutter/Dart, Firebase, Google Cloud e Node.js para fornecer uma experiência de usuário intuitiva e uma base sólida para gerenciamento de dados em tempo real.
 
 <div align="center" style="margin-top: 20px;">
   <img src="https://github.com/RafaelRFAndrade/CopapelEstoque/assets/110788109/e5a272fd-d96c-42e0-9434-31cbea83eae8.png" alt="Autenticação" width="250"/>
@@ -18,7 +18,8 @@ O Aplicativo de Contagem de Estoque Copapel é uma solução desenvolvida para s
 
 - **Flutter/Dart:** O aplicativo é desenvolvido utilizando o framework Flutter e a linguagem de programação Dart. Isso permite a criação de interfaces de usuário modernas e responsivas.
 - **Firebase:** O Firebase é utilizado como nossa Database, armazenando os dados das contagens de estoque e fornecendo recursos de autenticação e sincronização em tempo real.
-- **Node.js:** Uma aplicação Node.js foi usada fora da aplicação para processar e gerenciar a grande quantidade de produtos(+3000). 
+- **Google Cloud:** O Google Cloud é utilizado para a armazenagem na nuvem das imagens dos produtos, para que elas sejam facilmente acessadas pelo aplicativo quando requisitadas.
+- **Node.js:** Uma aplicação Node.js foi usada fora do app para processar e gerenciar a manipulação (importação ao Database) da grande quantidade de produtos(+4000). 
 
 ## Desenvolvedores
 
